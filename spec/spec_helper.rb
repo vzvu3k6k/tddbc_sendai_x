@@ -22,6 +22,8 @@
 root_dir = File.expand_path(File.dirname(__FILE__) + "/..")
 Dir["#{root_dir}/lib/**/*.rb"].each { |f| require f }
 
+require_relative './support/strawberry_helper'
+
 require "rspec-power_assert"
 
 RSpec.configure do |config|

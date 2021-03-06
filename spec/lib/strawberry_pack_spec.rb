@@ -1,4 +1,6 @@
 RSpec.describe StrawberryPack do
+  include StrawberryHelper
+
   describe '#initialize' do
     let(:strawberry1) { Strawberry.new('あまおう', 'S') }
     let(:strawberry2) { Strawberry.new('あまおう', 'S') }
@@ -13,10 +15,6 @@ RSpec.describe StrawberryPack do
   describe '#same_variety?' do
     let(:strawberries) { [strawberry1, strawberry2, strawberry3] }
     let(:pack) { StrawberryPack.new(strawberries) }
-
-    def any_size
-      Strawberry::AVAILABLE_SIZES.sample
-    end
 
     context 'いちごの品種がすべて同じ場合' do
       let(:strawberry1) { Strawberry.new('あまおう', any_size) }

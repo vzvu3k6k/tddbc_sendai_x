@@ -1,4 +1,6 @@
 RSpec.describe Strawberry do
+  include StrawberryHelper
+
   describe '#initialize' do
     context '成功' do
       it 'いちごを作成できる' do
@@ -66,9 +68,6 @@ RSpec.describe Strawberry do
 
   describe '#same_variety?' do
     shared_examples '同一品種判定' do |one_variety, another_variety, expected|
-      def any_size
-        Strawberry::AVAILABLE_SIZES.sample
-      end
       let(:one) { Strawberry.new(one_variety, any_size) }
       let(:another) { Strawberry.new(another_variety, any_size) }
 
@@ -88,9 +87,6 @@ RSpec.describe Strawberry do
 
   describe '#size_diff' do
     shared_examples 'サイズ差計算' do |one_size, another_size, expected|
-      def any_variety
-        Strawberry::AVAILABLE_VARIETIES.sample
-      end
       let(:one) { Strawberry.new(any_variety, one_size) }
       let(:another) { Strawberry.new(any_variety, another_size) }
 
