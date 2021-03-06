@@ -28,31 +28,39 @@ RSpec.describe Strawberry do
   describe '#to_s' do
     subject { Strawberry.new(variety, size).to_s }
 
-    describe 'あまおう: M' do
-      let(:variety) { 'あまおう' }
-      let(:size) { 'M' }
-      it { is_expected.to eq 'あまおう: M' }
+    describe 'サイズを与えて作成したいちご' do
+      describe 'あまおう: M' do
+        let(:variety) { 'あまおう' }
+        let(:size) { 'M' }
+        it { is_expected.to eq 'あまおう: M' }
+      end
+
+      describe 'とちおとめ: L' do
+        let(:variety) { 'とちおとめ' }
+        let(:size) { 'L' }
+        it { is_expected.to eq 'とちおとめ: L' }
+      end
     end
 
-    describe 'とちおとめ: L' do
-      let(:variety) { 'とちおとめ' }
-      let(:size) { 'L' }
-      it { is_expected.to eq 'とちおとめ: L' }
-    end
-
-    context '重さがグラムで与えられている場合' do
-      subject { Strawberry.new('とちおとめ', weight).to_s }
-
+    describe '重さを与えて作成したいちご' do
       shared_examples '重さから作成したいちご' do |weight, size|
         it { expect(Strawberry.new('とちおとめ', weight).to_s).to eq "とちおとめ: #{size}" }
       end
 
-      context('重さが9グラムの場合') { it_should_behave_like '重さから作成したいちご', 9, 'S' }
-      context('重さが10グラムの場合') { it_should_behave_like '重さから作成したいちご', 10, 'M' }
-      context('重さが19グラムの場合') { it_should_behave_like '重さから作成したいちご', 19, 'M' }
-      context('重さが20グラムの場合') { it_should_behave_like '重さから作成したいちご', 20, 'L' }
-      context('重さが24グラムの場合') { it_should_behave_like '重さから作成したいちご', 24, 'L' }
-      context('重さが25グラムの場合') { it_should_behave_like '重さから作成したいちご', 25, 'LL' }
+      context 'S' do
+        context('重さが9グラムの場合') { it_should_behave_like '重さから作成したいちご', 9, 'S' }
+      end
+      context 'M' do
+        context('重さが10グラムの場合') { it_should_behave_like '重さから作成したいちご', 10, 'M' }
+        context('重さが19グラムの場合') { it_should_behave_like '重さから作成したいちご', 19, 'M' }
+      end
+      context 'L' do
+        context('重さが20グラムの場合') { it_should_behave_like '重さから作成したいちご', 20, 'L' }
+        context('重さが24グラムの場合') { it_should_behave_like '重さから作成したいちご', 24, 'L' }
+      end
+      context 'LL' do
+        context('重さが25グラムの場合') { it_should_behave_like '重さから作成したいちご', 25, 'LL' }
+      end
     end
   end
 end
