@@ -63,4 +63,24 @@ RSpec.describe Strawberry do
       end
     end
   end
+
+  describe '#same_variety?' do
+    context '品種が同じ場合' do
+      let(:one) { Strawberry.new('あまおう', 'S') }
+      let(:another) { Strawberry.new('あまおう', 'LL') }
+
+      it '品種が同一と判定される' do
+        expect(one).to be_same_variety(another)
+      end
+    end
+
+    context '品種が違う場合' do
+      let(:one) { Strawberry.new('あまおう', 'S') }
+      let(:another) { Strawberry.new('とちおとめ', 'S') }
+
+      it '品種が同一と判定されない' do
+        expect(one).not_to be_same_variety(another)
+      end
+    end
+  end
 end

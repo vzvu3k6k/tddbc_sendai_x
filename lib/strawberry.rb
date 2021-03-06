@@ -2,6 +2,8 @@ class Strawberry
   AVAILABLE_VARIETIES = ['あまおう', 'とちおとめ', 'もういっこ']
   AVAILABLE_SIZES = ['S', 'M', 'L', 'LL']
 
+  attr_reader :variety, :size
+
   def initialize(variety, size)
     raise ArgumentError, '無効な品種です' unless AVAILABLE_VARIETIES.include?(variety)
     if size.is_a?(Integer)
@@ -16,6 +18,10 @@ class Strawberry
 
   def to_s
     "#{@variety}: #{@size}"
+  end
+
+  def same_variety?(another)
+    self.variety == another.variety
   end
 
   private
