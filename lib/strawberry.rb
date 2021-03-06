@@ -4,13 +4,11 @@ class Strawberry
 
   attr_reader :variety, :size
 
-  def initialize(variety, size)
+  def initialize(variety, size_or_weight)
     raise ArgumentError, '無効な品種です' unless AVAILABLE_VARIETIES.include?(variety)
-    if size.is_a?(Integer)
-      size = weight_to_size(size)
-    else
-      raise ArgumentError, '無効なサイズです' unless AVAILABLE_SIZES.include?(size)
-    end
+
+    size = size_or_weight.is_a?(Integer) ? weight_to_size(size_or_weight) : size_or_weight
+    raise ArgumentError, '無効なサイズです' unless AVAILABLE_SIZES.include?(size)
 
     @variety = variety
     @size = size
