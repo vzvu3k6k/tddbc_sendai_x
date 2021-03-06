@@ -4,7 +4,9 @@ class Strawberry
 
   def initialize(variety, size)
     raise ArgumentError, '無効な品種です' unless AVAILABLE_VARIETIES.include?(variety)
-    raise ArgumentError, '無効なサイズです' unless AVAILABLE_SIZES.include?(size)
+    unless size.is_a?(Integer)
+      raise ArgumentError, '無効なサイズです' unless AVAILABLE_SIZES.include?(size)
+    end
 
     @variety = variety
     @size = size
