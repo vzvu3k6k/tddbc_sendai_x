@@ -82,4 +82,33 @@ RSpec.describe Strawberry do
     context('もういっこ, とちおとめ') { it_should_behave_like '同一品種判定', 'もういっこ', 'とちおとめ', false }
     context('もういっこ, もういっこ') { it_should_behave_like '同一品種判定', 'もういっこ', 'もういっこ', true }
   end
+
+  describe '#size_diff' do
+    shared_examples 'サイズ差計算' do |one_size, another_size, expected|
+      let(:one) { Strawberry.new('あまおう', one_size) }
+      let(:another) { Strawberry.new('あまおう', another_size) }
+
+      it { expect(one.size_diff(another)).to eq expected }
+    end
+
+    context('S, S') { it_should_behave_like 'サイズ差計算', 'S', 'S', 0 }
+    context('S, M') { it_should_behave_like 'サイズ差計算', 'S', 'M', 1 }
+    context('S, L') { it_should_behave_like 'サイズ差計算', 'S', 'L', 2 }
+    context('S, LL') { it_should_behave_like 'サイズ差計算', 'S', 'LL', 3 }
+
+    context('M, S') { it_should_behave_like 'サイズ差計算', 'M', 'S', 1 }
+    context('M, M') { it_should_behave_like 'サイズ差計算', 'M', 'M', 0 }
+    context('M, L') { it_should_behave_like 'サイズ差計算', 'M', 'L', 1 }
+    context('M, LL') { it_should_behave_like 'サイズ差計算', 'M', 'LL', 2 }
+
+    context('L, S') { it_should_behave_like 'サイズ差計算', 'L', 'S', 2 }
+    context('L, M') { it_should_behave_like 'サイズ差計算', 'L', 'M', 1 }
+    context('L, L') { it_should_behave_like 'サイズ差計算', 'L', 'L', 0 }
+    context('L, LL') { it_should_behave_like 'サイズ差計算', 'L', 'LL', 1 }
+
+    context('LL, S') { it_should_behave_like 'サイズ差計算', 'LL', 'S', 3 }
+    context('LL, M') { it_should_behave_like 'サイズ差計算', 'LL', 'M', 2 }
+    context('LL, L') { it_should_behave_like 'サイズ差計算', 'LL', 'L', 1 }
+    context('LL, LL') { it_should_behave_like 'サイズ差計算', 'LL', 'LL', 0 }
+  end
 end

@@ -24,6 +24,10 @@ class Strawberry
     self.variety == another.variety
   end
 
+  def size_diff(another)
+    (AVAILABLE_SIZES.index(another.size) - AVAILABLE_SIZES.index(self.size)).abs
+  end
+
   private
 
   def weight_to_size(weight)
