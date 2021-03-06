@@ -1,18 +1,26 @@
 RSpec.describe Strawberry do
   describe '#initialize' do
     context '成功' do
-      it do
+      it 'いちごを作成できる' do
         expect(Strawberry.new('あまおう', 'M')).to be_a(Strawberry)
+      end
+
+      it '重さからいちごを作成できる' do
+        expect(Strawberry.new('あまおう', 8)).to be_a(Strawberry)
       end
     end
 
     context '失敗' do
-      it do
-        expect { Strawberry.new('無効な品種', 'M') }.to raise_error ArgumentError, '無効な品種です'
+      context '無効な品種の場合' do
+        it 'ArgumentError（無効な品種です）が発生する' do
+          expect { Strawberry.new('無効な品種', 'M') }.to raise_error ArgumentError, '無効な品種です'
+        end
       end
 
-      it do
-        expect { Strawberry.new('あまおう', '無効なサイズ') }.to raise_error ArgumentError, '無効なサイズです'
+      context '無効なサイズの場合' do
+        it 'ArgumentError（無効なサイズです）が発生する' do
+          expect { Strawberry.new('あまおう', '無効なサイズ') }.to raise_error ArgumentError, '無効なサイズです'
+        end
       end
     end
   end
