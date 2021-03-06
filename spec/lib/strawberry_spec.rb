@@ -66,8 +66,11 @@ RSpec.describe Strawberry do
 
   describe '#same_variety?' do
     shared_examples '同一品種判定' do |one_variety, another_variety, expected|
-      let(:one) { Strawberry.new(one_variety, 'S') }
-      let(:another) { Strawberry.new(another_variety, 'S') }
+      def any_size
+        Strawberry::AVAILABLE_SIZES.sample
+      end
+      let(:one) { Strawberry.new(one_variety, any_size) }
+      let(:another) { Strawberry.new(another_variety, any_size) }
 
       it { expect(one.same_variety?(another)).to eq expected }
     end
@@ -85,8 +88,11 @@ RSpec.describe Strawberry do
 
   describe '#size_diff' do
     shared_examples 'サイズ差計算' do |one_size, another_size, expected|
-      let(:one) { Strawberry.new('あまおう', one_size) }
-      let(:another) { Strawberry.new('あまおう', another_size) }
+      def any_variety
+        Strawberry::AVAILABLE_VARIETIES.sample
+      end
+      let(:one) { Strawberry.new(any_variety, one_size) }
+      let(:another) { Strawberry.new(any_variety, another_size) }
 
       it { expect(one.size_diff(another)).to eq expected }
     end
