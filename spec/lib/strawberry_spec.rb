@@ -39,5 +39,20 @@ RSpec.describe Strawberry do
       let(:size) { 'L' }
       it { is_expected.to eq 'とちおとめ: L' }
     end
+
+    context '重さがグラムで与えられている場合' do
+      subject { Strawberry.new('とちおとめ', weight).to_s }
+
+      shared_examples '重さから作成したいちご' do |weight, size|
+        it { expect(Strawberry.new('とちおとめ', weight).to_s).to eq "とちおとめ: #{size}" }
+      end
+
+      context('重さが9グラムの場合') { it_should_behave_like '重さから作成したいちご', 9, 'S' }
+      context('重さが10グラムの場合') { it_should_behave_like '重さから作成したいちご', 10, 'M' }
+      context('重さが19グラムの場合') { it_should_behave_like '重さから作成したいちご', 19, 'M' }
+      context('重さが20グラムの場合') { it_should_behave_like '重さから作成したいちご', 20, 'L' }
+      context('重さが24グラムの場合') { it_should_behave_like '重さから作成したいちご', 24, 'L' }
+      context('重さが25グラムの場合') { it_should_behave_like '重さから作成したいちご', 25, 'LL' }
+    end
   end
 end
