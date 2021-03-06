@@ -65,22 +65,21 @@ RSpec.describe Strawberry do
   end
 
   describe '#same_variety?' do
-    context '品種が同じ場合' do
-      let(:one) { Strawberry.new('あまおう', 'S') }
-      let(:another) { Strawberry.new('あまおう', 'LL') }
+    shared_examples '同一品種判定' do |one_variety, another_variety, expected|
+      let(:one) { Strawberry.new(one_variety, 'S') }
+      let(:another) { Strawberry.new(another_variety, 'S') }
 
-      it '品種が同一と判定される' do
-        expect(one).to be_same_variety(another)
-      end
+      it { expect(one.same_variety?(another)).to eq expected }
     end
 
-    context '品種が違う場合' do
-      let(:one) { Strawberry.new('あまおう', 'S') }
-      let(:another) { Strawberry.new('とちおとめ', 'S') }
-
-      it '品種が同一と判定されない' do
-        expect(one).not_to be_same_variety(another)
-      end
-    end
+    context('あまおう, あまおう') { it_should_behave_like '同一品種判定', 'あまおう', 'あまおう', true }
+    context('あまおう, とちおとめ') { it_should_behave_like '同一品種判定', 'あまおう', 'とちおとめ', false }
+    context('あまおう, もういっこ') { it_should_behave_like '同一品種判定', 'あまおう', 'もういっこ', false }
+    context('とちおとめ, あまおう') { it_should_behave_like '同一品種判定', 'とちおとめ', 'あまおう', false }
+    context('とちおとめ, とちおとめ') { it_should_behave_like '同一品種判定', 'とちおとめ', 'とちおとめ', true }
+    context('とちおとめ, もういっこ') { it_should_behave_like '同一品種判定', 'とちおとめ', 'もういっこ', false }
+    context('もういっこ, あまおう') { it_should_behave_like '同一品種判定', 'もういっこ', 'あまおう', false }
+    context('もういっこ, とちおとめ') { it_should_behave_like '同一品種判定', 'もういっこ', 'とちおとめ', false }
+    context('もういっこ, もういっこ') { it_should_behave_like '同一品種判定', 'もういっこ', 'もういっこ', true }
   end
 end
