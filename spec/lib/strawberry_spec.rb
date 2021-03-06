@@ -8,9 +8,12 @@ RSpec.describe Strawberry do
 
     context '失敗' do
       it do
-        expect { Strawberry.new('無効な品種', '無効なサイズ') }.to raise_error ArgumentError
+        expect { Strawberry.new('無効な品種', 'M') }.to raise_error ArgumentError, '無効な品種です'
       end
-      # なお、品種は、 あまおう とちおとめ もういっこ の3種類、いちごのサイズは S M L LL の4種類です。
+
+      it do
+        expect { Strawberry.new('あまおう', '無効なサイズ') }.to raise_error ArgumentError, '無効なサイズです'
+      end
     end
   end
 
